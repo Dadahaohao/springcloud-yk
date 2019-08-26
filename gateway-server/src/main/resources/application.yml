@@ -1,0 +1,21 @@
+server:
+  port: 10010
+
+spring:
+  application:
+    name: gateway-server
+  cloud:
+    gateway:
+      routes:
+        - id: food-consumer
+          uri: lb://FOOD-CONSUMER
+          order: 0
+          predicates:
+            - Path=/food-consumer/** #路径路由
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
